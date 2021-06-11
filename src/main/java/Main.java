@@ -1,3 +1,4 @@
+import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import java.io.File;
@@ -15,12 +16,17 @@ public class Main {
 
         System.out.println(carAsString);
 
-        String json = "{ \"color\" : \"Black\", \"type\" : \"BMW\" }";
-        Car carFromJson = objectMapper.readValue(json, Car.class);
+        String jsonBmw = "{ \"color\" : \"Black\", \"type\" : \"BMW\" }";
+        Car carFromJson = objectMapper.readValue(jsonBmw, Car.class);
         Car carFromFile = objectMapper.readValue(new File("src/main/resources/files/car.json"), Car.class);
         Car carFromUrl = objectMapper.readValue(new URL("file:src/main/resources/files/car.json"), Car.class);
 
         System.out.println(carFromUrl);
 
+        String jsonFiat = "{ \"color\" : \"Black\", \"type\" : \"Fiat\" }";
+        JsonNode jsonNode = objectMapper.readTree(jsonFiat);
+        String color = jsonNode.get("color").asText();
+
+        System.out.println(color);
     }
 }
