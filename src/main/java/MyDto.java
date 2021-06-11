@@ -1,8 +1,10 @@
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @JsonIgnoreProperties(value = { "intValue" })
 public class MyDto {
 
+    @JsonIgnore
     private String stringValue;
     private int intValue;
     private boolean booleanValue;
