@@ -99,6 +99,11 @@ public class Main {
 
         Arrays.stream(carArray).forEach(System.out::println);
         delimiter();
+
+        List<Car> carList = objectMapper.readValue(jsonCarArray, new TypeReference<List<Car>>() {});
+
+        carList.forEach(System.out::println);
+        delimiter();
     }
 
     private static void delimiter() {
