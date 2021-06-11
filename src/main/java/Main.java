@@ -1,4 +1,5 @@
 import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -46,5 +47,17 @@ public class Main {
         Map<String, Object> map = objectMapper.readValue(jsonMap, new TypeReference<Map<String, Object>>() {});
 
         map.forEach((key, value) -> System.out.println(key + " - " + value));
+        System.out.println("-".repeat(20));
+
+        String jsonString = "{ \"color\" : \"Black\", \"type\" : \"Fiat\", \"year\" : \"1970\" }";
+        objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+        Car car1 = objectMapper.readValue(jsonString, Car.class);
+
+        JsonNode jsonNodeRoot = objectMapper.readTree(jsonString);
+        JsonNode jsonNodeYear = jsonNodeRoot.get("year");
+        String year = jsonNodeYear.asText();
+
+        System.out.println(year);
+        System.out.println("-".repeat(20));
     }
 }
