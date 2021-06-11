@@ -21,5 +21,6 @@ public class Main {
         Car carFromUrl = objectMapper.readValue(new URL("file:src/main/resources/files/car.json"), Car.class);
 
         System.out.println(carFromUrl);
+
     }
 }
