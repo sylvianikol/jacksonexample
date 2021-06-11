@@ -10,6 +10,8 @@ public class Main {
         Car car = new Car("blue", "ford");
         objectMapper.writeValue(new File("src/main/resources/files/car.json"), car);
 
-        
+        String carAsString = objectMapper.writeValueAsString(car);
+
+        System.out.println(carAsString);
     }
 }
