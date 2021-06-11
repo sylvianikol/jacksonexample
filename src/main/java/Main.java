@@ -1,9 +1,11 @@
+import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
+import java.util.List;
 
 public class Main {
     public static void main(String[] args) throws IOException {
@@ -28,5 +30,11 @@ public class Main {
         String color = jsonNode.get("color").asText();
 
         System.out.println(color);
+
+        String jsonCarArray =
+                "[{ \"color\" : \"Black\", \"type\" : \"BMW\" }, { \"color\" : \"Red\", \"type\" : \"FIAT\" }]";
+        List<Car> cars = objectMapper.readValue(jsonCarArray, new TypeReference<List<Car>>() {});
+
+        cars.forEach(System.out::println);
     }
 }
