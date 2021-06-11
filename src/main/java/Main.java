@@ -13,5 +13,10 @@ public class Main {
         String carAsString = objectMapper.writeValueAsString(car);
 
         System.out.println(carAsString);
+
+        String json = "{ \"color\" : \"Black\", \"type\" : \"BMW\" }";
+        Car car1 = objectMapper.readValue(json, Car.class);
+
+        System.out.println(car1);
     }
 }
