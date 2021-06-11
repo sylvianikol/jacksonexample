@@ -23,16 +23,16 @@ public class Main {
         System.out.println(carAsString);
         delimiter();
 
-        String jsonBmw = "{ \"color\" : \"Black\", \"type\" : \"BMW\" }";
-        Car carFromJson = objectMapper.readValue(jsonBmw, Car.class);
+        String json01 = "{ \"color\" : \"Black\", \"type\" : \"BMW\" }";
+        Car carFromJson = objectMapper.readValue(json01, Car.class);
         Car carFromFile = objectMapper.readValue(new File("src/main/resources/files/car.json"), Car.class);
         Car carFromUrl = objectMapper.readValue(new URL("file:src/main/resources/files/car.json"), Car.class);
 
         System.out.println(carFromUrl);
         delimiter();
 
-        String jsonFiat = "{ \"color\" : \"Black\", \"type\" : \"Fiat\" }";
-        JsonNode jsonNode = objectMapper.readTree(jsonFiat);
+        String json02 = "{ \"color\" : \"Black\", \"type\" : \"Fiat\" }";
+        JsonNode jsonNode = objectMapper.readTree(json02);
         String color = jsonNode.get("color").asText();
 
         System.out.println(color);
@@ -51,25 +51,35 @@ public class Main {
         map.forEach((key, value) -> System.out.println(key + " - " + value));
         delimiter();
 
-        String jsonString = "{ \"color\" : \"Black\", \"type\" : \"Fiat\", \"year\" : \"1970\" }";
+        String json03 = "{ \"color\" : \"Black\", \"type\" : \"Fiat\", \"year\" : \"1970\" }";
         objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
-        Car car1 = objectMapper.readValue(jsonString, Car.class);
+        Car car1 = objectMapper.readValue(json03, Car.class);
 
-        JsonNode jsonNodeRoot = objectMapper.readTree(jsonString);
+        JsonNode jsonNodeRoot = objectMapper.readTree(json03);
         JsonNode jsonNodeYear = jsonNodeRoot.get("year");
         String year = jsonNodeYear.asText();
 
         System.out.println(year);
         delimiter();
 
-        SimpleModule module = new SimpleModule("CustomCarSerializer",
+        SimpleModule moduleSerializer = new SimpleModule("CustomCarSerializer",
                 new Version(1, 0, 0, null, null, null));
-        module.addSerializer(Car.class, new CustomCarSerializer());
-        objectMapper.registerModule(module);
+        moduleSerializer.addSerializer(Car.class, new CustomCarSerializer());
+        objectMapper.registerModule(moduleSerializer);
         Car car2 = new Car("yellow", "renault");
         String car2Json = objectMapper.writeValueAsString(car2);
 
         System.out.println(car2Json);
+        delimiter();
+
+        String json04 = "{ \"color\" : \"Black\", \"type\" : \"BMW\" }";
+        SimpleModule moduleDeserializer = new SimpleModule("CustomCarDeserializer",
+                new Version(1, 0, 0, null, null, null));
+        moduleDeserializer.addDeserializer(Car.class, new CustomCarDeserializer());
+        objectMapper.registerModule(moduleDeserializer);
+        Car car3 = objectMapper.readValue(json04, Car.class);
+
+        System.out.println(car3);
         delimiter();
     }
 
