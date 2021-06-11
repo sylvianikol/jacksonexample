@@ -8,6 +8,9 @@ import com.fasterxml.jackson.databind.module.SimpleModule;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -80,6 +83,14 @@ public class Main {
         Car car3 = objectMapper.readValue(json04, Car.class);
 
         System.out.println(car3);
+        delimiter();
+
+        Request request = new Request(car, new Date());
+        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm a z");
+        objectMapper.setDateFormat(dateFormat);
+        String requestAsString = objectMapper.writeValueAsString(request);
+
+        System.out.println(requestAsString);
         delimiter();
     }
 
