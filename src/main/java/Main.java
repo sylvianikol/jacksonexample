@@ -10,6 +10,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -91,6 +92,12 @@ public class Main {
         String requestAsString = objectMapper.writeValueAsString(request);
 
         System.out.println(requestAsString);
+        delimiter();
+
+        objectMapper.configure(DeserializationFeature.USE_JAVA_ARRAY_FOR_JSON_ARRAY, true);
+        Car[] carArray = objectMapper.readValue(jsonCarArray, Car[].class);
+
+        Arrays.stream(carArray).forEach(System.out::println);
         delimiter();
     }
 
