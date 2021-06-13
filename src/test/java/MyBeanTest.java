@@ -17,4 +17,15 @@ class MyBeanTest {
         assertThat(result, containsString("My bean"));
         assertThat(result, containsString("1"));
     }
+
+    @Test
+    void test_serializeUsingJsonPropertyOrder() throws JsonProcessingException {
+
+        MyBean bean = new MyBean(1, "My bean");
+
+        String result = new ObjectMapper().writeValueAsString(bean);
+
+        assertThat(result, containsString("My bean"));
+        assertThat(result, containsString("1"));
+    }
 }
