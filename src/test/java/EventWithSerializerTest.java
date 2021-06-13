@@ -8,6 +8,7 @@ import java.util.Date;
 
 import static org.hamcrest.CoreMatchers.containsString;
 import static org.junit.Assert.assertThat;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class EventWithSerializerTest {
 
@@ -24,5 +25,18 @@ class EventWithSerializerTest {
         String result = new ObjectMapper().writeValueAsString(event);
 
         assertThat(result, containsString(toParse));
+    }
+
+    @Test
+    void test_deserializeUsingJsonAnySetter() throws JsonProcessingException {
+
+        String json = "{\"name\":\"My bean\",\"attr2\":\"val2\",\"attr1\":\"val1\"}";
+
+        ExtendableBean bean = new ObjectMapper()
+                .readerFor(ExtendableBean.class)
+                .readValue(json);
+
+        assertEquals("My bean", bean.getName());
+        assertEquals("val2", bean.getProperties().get("attr2"));
     }
 }

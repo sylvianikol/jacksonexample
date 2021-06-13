@@ -1,4 +1,5 @@
 import com.fasterxml.jackson.annotation.JsonAnyGetter;
+import com.fasterxml.jackson.annotation.JsonAnySetter;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -17,8 +18,9 @@ public class ExtendableBean {
         this.name = name;
     }
 
-    public void add(String attr, String value) {
-        properties.put(attr, value);
+    @JsonAnySetter
+    public void add(String key, String value) {
+        properties.put(key, value);
     }
 
 
