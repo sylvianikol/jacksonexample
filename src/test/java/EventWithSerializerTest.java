@@ -39,4 +39,21 @@ class EventWithSerializerTest {
         assertEquals("My bean", bean.getName());
         assertEquals("val2", bean.getProperties().get("attr2"));
     }
+
+    @Test
+    void test_deserializeUsingDeserialize() throws JsonProcessingException {
+
+        String json
+                = "{\"name\":\"party\",\"eventDate\":\"20-12-2014 02:30:00\"}";
+
+        SimpleDateFormat df
+                = new SimpleDateFormat("dd-MM-yyyy hh:mm:ss");
+
+        EventWithSerializer event = new ObjectMapper()
+                .readerFor(EventWithSerializer.class)
+                .readValue(json);
+
+        assertEquals(
+                "20-12-2014 02:30:00", df.format(event.getEventDate()));
+    }
 }
