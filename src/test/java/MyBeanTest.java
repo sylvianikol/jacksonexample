@@ -1,4 +1,5 @@
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.MapperFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
 
@@ -39,5 +40,19 @@ class MyBeanTest {
 
         assertThat(result, containsString("1"));
         assertThat(result, not(containsString("name")));
+    }
+
+    @Test
+    void test_disableAllAnnotations() throws JsonProcessingException {
+
+        MyBean bean = new MyBean(1, null);
+
+        ObjectMapper mapper = new ObjectMapper();
+        mapper.disable(MapperFeature.USE_ANNOTATIONS);
+
+        String result = mapper.writeValueAsString(bean);
+
+        assertThat(result, containsString("1"));
+        assertThat(result, containsString("name"));
     }
 }
