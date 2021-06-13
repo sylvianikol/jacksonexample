@@ -19,4 +19,15 @@ class BeanWithIgnoreTest {
         assertThat(result, containsString("My bean"));
         assertThat(result, not(containsString("id")));
     }
+
+    @Test
+    void test_serializeUsingJsonIgnore() throws JsonProcessingException {
+
+        BeanWithIgnore bean = new BeanWithIgnore(1, "My bean");
+
+        String result = new ObjectMapper().writeValueAsString(bean);
+
+        assertThat(result, containsString("My bean"));
+        assertThat(result, not(containsString("id")));
+    }
 }
