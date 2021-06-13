@@ -28,4 +28,13 @@ class SimpleBeanTest {
         File file = new File("src/test/resources/files/output.xml");
         assertNotNull(file);
     }
+
+    @Test
+    void test_deserializeFromXmlString() throws JsonProcessingException {
+
+        XmlMapper mapper = new XmlMapper();
+        SimpleBean bean = mapper.readValue("<SimpleBean><x>1</x><y>2</y></SimpleBean>", SimpleBean.class);
+
+        assertTrue(bean.getX() == 1 && bean.getY() == 2);
+    }
 }
