@@ -1,5 +1,6 @@
 package xml;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.dataformat.xml.XmlMapper;
 import org.junit.jupiter.api.Test;
 
@@ -26,6 +27,16 @@ class PersonTest {
         String str = outputStream.toString();
 
         assertEquals(XML, outputStream.toString());
+    }
+
+    @Test
+    void test_deserializeFromXml() throws JsonProcessingException {
+
+        XmlMapper mapper = new XmlMapper();
+        Person person = mapper.readValue(XML, Person.class);
+
+        assertEquals("City1", person.getAddress().get(0).getCity());
+        assertEquals("City2", person.getAddress().get(1).getCity());
     }
 
     private Person testData() {
