@@ -1,5 +1,8 @@
 package json;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.databind.ser.std.MapSerializer;
 
@@ -8,7 +11,9 @@ import java.util.Map;
 
 public class ClassWithAMap {
 
+    @JsonProperty("map")
     @JsonSerialize(using = MyPairSerializer.class)
+    @JsonDeserialize(keyUsing = MyPairDeserializer.class)
     private Map<MyPair, String> map;
     @JsonSerialize(keyUsing = MapSerializer.class)
     private Map<MyPair, MyPair> pairMap;
@@ -20,6 +25,11 @@ public class ClassWithAMap {
     public ClassWithAMap() {
         this.map = new HashMap<>();
         this.pairMap = new HashMap<>();
+    }
+
+    @JsonCreator
+    public ClassWithAMap(Map<MyPair, String> map) {
+        this.map = map;
     }
 
     public Map<MyPair, String> getMap() {
