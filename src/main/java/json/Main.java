@@ -12,10 +12,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.Arrays;
-import java.util.Date;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class Main {
     public static void main(String[] args) throws IOException {
@@ -125,6 +122,13 @@ public class Main {
                 .writeValueAsString(classWithAMap.getPairMap());
 
         System.out.println(jsonResult);
+        delimiter();
+
+        String jsonInput = "{\"key\": \"value\"}";
+        TypeReference<HashMap<String, String>> typeRef = new TypeReference<HashMap<String, String>>() {};
+        Map<String, String> stringMap = objectMapper.readValue(jsonInput, typeRef);
+
+        System.out.println(stringMap);
         delimiter();
     }
 
