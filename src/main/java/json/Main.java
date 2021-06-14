@@ -106,6 +106,16 @@ public class Main {
 
         carList.forEach(System.out::println);
         delimiter();
+
+        MyPair pair = new MyPair("Abbott", "Costello");
+        ClassWithAMap classWithAMap = new ClassWithAMap();
+        classWithAMap.getMap().put(pair, "Comedy");
+
+        String jsonResult = objectMapper.writerWithDefaultPrettyPrinter()
+                .writeValueAsString(classWithAMap.getMap());
+
+        System.out.println(jsonResult);
+        delimiter();
     }
 
     private static void delimiter() {
