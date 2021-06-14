@@ -116,6 +116,16 @@ public class Main {
 
         System.out.println(jsonResult);
         delimiter();
+
+        MyPair mapKey = new MyPair("Abbott", "Costello");
+        MyPair mapValue = new MyPair("Comedy", "1940s");
+        classWithAMap.getPairMap().put(mapKey, mapValue);
+
+        jsonResult = objectMapper.writerWithDefaultPrettyPrinter()
+                .writeValueAsString(classWithAMap.getPairMap());
+
+        System.out.println(jsonResult);
+        delimiter();
     }
 
     private static void delimiter() {
