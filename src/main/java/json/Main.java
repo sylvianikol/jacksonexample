@@ -130,6 +130,13 @@ public class Main {
 
         System.out.println(stringMap);
         delimiter();
+
+        jsonInput = "{\"Abbott and Costello\" : \"Comedy\"}";
+        TypeReference<HashMap<MyPair, String>> typeRef2 = new TypeReference<HashMap<MyPair, String>>() {};
+        Map<MyPair,String> myPairStringMap = objectMapper.readValue(jsonInput, typeRef2);
+
+        System.out.println(myPairStringMap);
+        delimiter();
     }
 
     private static void delimiter() {
